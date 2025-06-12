@@ -31,11 +31,16 @@ function App() {
       <h5>Get accurate, Real time Weather</h5>
       <h4>Weather in Colombo</h4>
       {loading && <p>Loading..</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       {weather && (
         <div>
+          <p>Local Time: {weather.location.localtime}</p>
           <p>Temperature: {weather.current.temp_c}°C</p>
+          <p>Feels Like: {weather.current.feelslike_c}°C</p>
+          <p>Weather Condition: {weather.current.condition.text}</p>
           <p>Humidity: {weather.current.humidity}%</p>
           <p>Wind Speed: {weather.current.wind_kph}kph</p>
+          <p>Wind Direction: {weather.current.wind_dir}</p>
           <p>UV index: {weather.current.uv}</p>
         </div>
       )}
