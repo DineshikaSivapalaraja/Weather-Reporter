@@ -52,7 +52,7 @@ function App() {
         <button type="submit">Search</button>
       </form>
 
-      {loading && <p>Loading..</p>}
+      {loading && <div className="spinner"></div>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {weather && (
         <div>
