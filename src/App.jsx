@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import WeatherCard from './components/WeatherCard'
+import SearchBar from './components/SearchBar'
 import './App.css'
 
 function App() {
@@ -32,10 +33,14 @@ function App() {
     fetchWeather(city)
   }, [])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (city.trim() === '') return
-    fetchWeather(city)
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   if (city.trim() === '') return
+  //   fetchWeather(city)
+  // }
+  const handleSearch = (searchCity) => {
+    if (searchCity.trim() === '') return
+    fetchWeather(searchCity)
   }
 
   // feature to get weather by geolocation--> will use the browser's geolocation API to get the user's current location
@@ -44,6 +49,7 @@ function App() {
       setError('Geolocation is not supported')
       return
     }
+    setLoading(true)
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords
@@ -61,7 +67,7 @@ function App() {
       <h3>Welcome to Weather Reporter!</h3>
       <h5>Get accurate, Real time Weather</h5>
       
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={city}
@@ -72,7 +78,14 @@ function App() {
         <button type="button" onClick={handleGeoLocation}>
           Use My Location
         </button>
-      </form>
+      </form> */}
+
+      <SearchBar
+        city={city}
+        setCity={setCity}
+        onSearch={handleSearch}
+        onGeoLocation={handleGeoLocation}
+      />
 
       {loading && <div className="spinner"></div>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
