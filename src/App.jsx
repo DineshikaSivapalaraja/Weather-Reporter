@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import WeatherCard from './components/WeatherCard'
 import SearchBar from './components/SearchBar'
+import Loader from './components/Loader'
 import './App.css'
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
       setWeather(data)
       setCity(data.location.name)
     } catch (error) {
-      setError(error)
+      setError(error.message)
     } finally {
       setLoading(false)
     }
@@ -33,15 +34,13 @@ function App() {
     fetchWeather(city)
   }, [])
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   if (city.trim() === '') return
-  //   fetchWeather(city)
-  // }
   const handleSearch = (searchCity) => {
-    if (searchCity.trim() === '') return
-    fetchWeather(searchCity)
+  if (searchCity.trim() === '') {
+    setError('Please enter a city name.')
+    return
   }
+  fetchWeather(searchCity)
+}
 
   // feature to get weather by geolocation--> will use the browser's geolocation API to get the user's current location
   const handleGeoLocation = () => {
@@ -66,19 +65,6 @@ function App() {
     <div>
       <h3>Welcome to Weather Reporter!</h3>
       <h5>Get accurate, Real time Weather</h5>
-      
-      {/* <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={city}
-          onChange={e => setCity(e.target.value)}
-          placeholder="Enter city"
-        />
-        <button type="submit">Search</button>
-        <button type="button" onClick={handleGeoLocation}>
-          Use My Location
-        </button>
-      </form> */}
 
       <SearchBar
         city={city}
@@ -87,10 +73,11 @@ function App() {
         onGeoLocation={handleGeoLocation}
       />
 
-      {loading && <div className="spinner"></div>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {weather && !loading && !error && <WeatherCard weather={weather} />}
+      {loading && <Loader />}
 
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      
+      {weather && !loading && !error && <WeatherCard weather={weather} />}
     </div>
     </>
     )
