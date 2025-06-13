@@ -19,6 +19,7 @@ function App() {
       if (!response.ok) throw new Error('City not found')
       const data = await response.json()
       setWeather(data)
+      setCity(data.location.name)
     } catch (error) {
       setError(error)
     } finally {
@@ -36,6 +37,23 @@ function App() {
     fetchWeather(city)
   }
 
+  // feature to get weather by geolocation--> will use the browser's geolocation API to get the user's current location
+  const handleGeoLocation = () => {
+    if (!navigator.geolocation) {
+      setError('Geolocation is not supported')
+      return
+    }
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords
+        fetchWeather(`${latitude},${longitude}`)
+      },
+      (error) => {
+        setError(error.message)
+      }
+    )
+  }
+
   return (
     <>
     <div>
@@ -50,6 +68,9 @@ function App() {
           placeholder="Enter city"
         />
         <button type="submit">Search</button>
+        <button type="button" onClick={handleGeoLocation}>
+          Use My Location
+        </button>
       </form>
 
       {loading && <div className="spinner"></div>}
@@ -61,7 +82,8 @@ function App() {
           <p>Local Time: {weather.location.localtime}</p>
           <p>Temperature: {weather.current.temp_c}°C</p>
           <p>Feels Like: {weather.current.feelslike_c}°C</p>
-          <p>Weather Condition: {weather.current.condition.text}<img src={weather.current.condition.icon} alt={weather.current.condition.text} /></p>
+          <p>Weather Condition: {weather.current.condition.text}</p>
+            <img src={weather.current.condition.icon} alt={weather.current.condition.text} />
           <p>Humidity: {weather.current.humidity}%</p>
           <p>Wind Speed: {weather.current.wind_kph}kph</p>
           <p>Wind Direction: {weather.current.wind_dir}</p>
