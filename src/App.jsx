@@ -63,8 +63,8 @@ function App() {
   return (
     <>
     <div>
-      <h3>Welcome to Weather Reporter!</h3>
-      <h5>Get accurate, Real time Weather</h5>
+      <h2>Welcome to Weather Reporter!</h2>
+      <h3>Get accurate, Real time Weather</h3>
 
       <SearchBar
         city={city}

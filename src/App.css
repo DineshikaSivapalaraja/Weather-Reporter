@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  color: white;
 }
 
 /* loading indicator spinner */
@@ -19,4 +20,50 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* search bar */
+input{
+  padding: 0.5rem;
+  border: 1px solid #bcd;
+  border-radius: 4px;
+  width: 60%;
+  margin-right: 0.5rem;
+}
+
+/* button style */
+button {
+  padding: 0.5rem 1rem;
+  background: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px;
+}
+
+button:hover, button:focus {
+  background: #217dbb;
+}
+
+/* weather card styles */
+.weather-card {
+  border: 2px solid #3498db;      
+  border-radius: 10px;
+  padding: 1.5rem 2rem;           
+  margin-top: 1.5rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.weather-card h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.weather-card p {
+  text-align: left;
+  margin: 0.3rem 0;
 }

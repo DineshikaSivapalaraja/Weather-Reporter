@@ -1,7 +1,7 @@
 function WeatherCard({ weather }) {
     return (
-        <div>
-            <h4>Weather in {weather.location.name}, {weather.location.country}</h4>
+        <div className="weather-card">
+            <h3>Weather in {weather.location.name}, {weather.location.country}</h3>
 
             <p>Local Time: {weather.location.localtime}</p>
             <p>Temperature: {weather.current.temp_c}°C</p>
