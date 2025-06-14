@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react'
+import WeatherCard from './components/WeatherCard'
+import SearchBar from './components/SearchBar'
+import Loader from './components/Loader'
 import './App.css'
 
 function App() {
@@ -21,7 +24,7 @@ function App() {
       setWeather(data)
       setCity(data.location.name)
     } catch (error) {
-      setError(error)
+      setError(error.message)
     } finally {
       setLoading(false)
     }
@@ -31,11 +34,13 @@ function App() {
     fetchWeather(city)
   }, [])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (city.trim() === '') return
-    fetchWeather(city)
+  const handleSearch = (searchCity) => {
+  if (searchCity.trim() === '') {
+    setError('Please enter a city name.')
+    return
   }
+  fetchWeather(searchCity)
+}
 
   // feature to get weather by geolocation--> will use the browser's geolocation API to get the user's current location
   const handleGeoLocation = () => {
@@ -43,6 +48,7 @@ function App() {
       setError('Geolocation is not supported')
       return
     }
+    setLoading(true)
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords
@@ -59,37 +65,19 @@ function App() {
     <div>
       <h3>Welcome to Weather Reporter!</h3>
       <h5>Get accurate, Real time Weather</h5>
-      
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={city}
-          onChange={e => setCity(e.target.value)}
-          placeholder="Enter city"
-        />
-        <button type="submit">Search</button>
-        <button type="button" onClick={handleGeoLocation}>
-          Use My Location
-        </button>
-      </form>
 
-      {loading && <div className="spinner"></div>}
+      <SearchBar
+        city={city}
+        setCity={setCity}
+        onSearch={handleSearch}
+        onGeoLocation={handleGeoLocation}
+      />
+
+      {loading && <Loader />}
+
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      {weather && (
-        <div>
-          <h4>Weather in {weather.location.name}, {weather.location.country}</h4>
-
-          <p>Local Time: {weather.location.localtime}</p>
-          <p>Temperature: {weather.current.temp_c}°C</p>
-          <p>Feels Like: {weather.current.feelslike_c}°C</p>
-          <p>Weather Condition: {weather.current.condition.text}</p>
-            <img src={weather.current.condition.icon} alt={weather.current.condition.text} />
-          <p>Humidity: {weather.current.humidity}%</p>
-          <p>Wind Speed: {weather.current.wind_kph}kph</p>
-          <p>Wind Direction: {weather.current.wind_dir}</p>
-          <p>UV index: {weather.current.uv}</p>
-        </div>
-      )}
+      
+      {weather && !loading && !error && <WeatherCard weather={weather} />}
     </div>
     </>
     )
