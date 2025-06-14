@@ -13,7 +13,8 @@ A simple, user-friendly web application that displays the **current weather** fo
   Users can search for any city in the world to view its current weather.
 
 - **Geolocation:**  
-  “Use My Location” button fetches weather for the user’s current location.
+  “Use My Location” button added to fetches weather for the user’s current location.
+  This feature relies on browser’s geolocation API. Sometimes, the detected location may not be accurate. 
 
 - **Weather Details Displayed:**  
   - Local Time (24 hrs format) 
@@ -32,7 +33,7 @@ A simple, user-friendly web application that displays the **current weather** fo
   User-friendly messages for invalid city names, geolocation errors, and empty input.
 
 - **Clean UI:**  
-  Minimal user-friendly design with clear layout and weather card.
+  Minimal user-friendly design with clear layout..
 
 ---
 
@@ -86,6 +87,14 @@ To redeploy or update:
 
 - [weatherapi.com](https://www.weatherapi.com/) for free weather data.
 - [Vercel](https://vercel.com/) for free hosting.
+
+---
+
+## Screenshots
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/3324d096-0e21-45aa-a438-45e431c5013b" />
+
+![image](https://github.com/user-attachments/assets/3f38ea8f-4d65-4e2f-8655-cd0bfd14f22b)
 
 ---
 
