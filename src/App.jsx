@@ -62,7 +62,7 @@ function App() {
 
   return (
     <>
-    <div>
+    <div className="app-container">
       <h2>Welcome to Weather Reporter!</h2>
       <h3>Get accurate, Real time Weather</h3>
 
