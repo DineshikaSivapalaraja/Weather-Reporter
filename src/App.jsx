@@ -17,7 +17,7 @@ function App() {
       const apiKey = import.meta.env.VITE_WEATHER_API_KEY
       // const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${process.env.VITE_WEATHER_API_KEY}&q=Colombo`)
       const response = await fetch(
-        `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}`
+        `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}`
       )
       if (!response.ok) throw new Error('City not found')
       const data = await response.json()
